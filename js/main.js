@@ -1,6 +1,6 @@
 /*Grace Vriezen's Module 2 */
 
-//note: spelled out jQuery since dollar signs weren't working originally
+//note: spelled out $ since dollar signs weren't working originally
 
 // cities table
 
@@ -8,9 +8,8 @@
 
 //initialize function
 function initialize () {
-	cities (); 
-
-
+	cities;
+	
 };
 
 
@@ -37,15 +36,15 @@ var cityPop = [
 
 //append table to div
 
-jQuery("#mydiv").append("<table>");
-jQuery("table").append("<tr>");
-jQuery("tr").append("<th>City</th><th>Population</th>");
+$("#mydiv").append("<table>");
+$("table").append("<tr>");
+$("tr").append("<th>City</th><th>Population</th>");
 
 //create for loop
 
 for (var i = 0; i < cityPop.length; i++) {
 	var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>"
-	jQuery("table").append(rowHtml);
+	$("table").append(rowHtml);
 
 	};
 
@@ -87,7 +86,7 @@ function addColumns(cityPop){
     		//no closing carrot on td tag
     		//add parentheses around this
 
-    		jQuery(this).append('<td>' + citySize + '</td>');
+    		$(this).append('<td>' + citySize + '</td>');
     	};
 
     });
@@ -99,7 +98,7 @@ function addColumns(cityPop){
 function addEvents(){
 	//no hashtag, table is not an id
 
-	jQuery('table').mouseover(function(){
+	$('table').mouseover(function(){
 
 		
 		var color = "rgb(";
@@ -120,7 +119,7 @@ function addEvents(){
 				color += ")";
 		};
 
-		jQuery(this).css('color', color);
+		$(this).css('color', color);
 
 		//extra parentheses in closing syntax
 	};
@@ -133,12 +132,59 @@ function addEvents(){
 	$('table').on('click', clickme);
 //missing parentheses in closing syntax
 });
+
 }
 
 
+//ajax
 
-//initialize - 
-jQuery(document).ready(initialize);
+function $Ajax(){
 
+	//define a variable to hold the data
+
+	var mydata;
+
+	//basic $ ajax method
+	$.ajax("data/Madison.geojson", {
+		dataType: "json",
+		success: function (response) {
+			mydata = response;
+			//check the data, should load, is within callback
+			console.log (mydata);
+		}
+	});
+
+	//check the data, should not print to console, response is not defined
+	console.log (mydata);
+};
+
+
+$(document).ready($Ajax);
+
+
+$Ajax();
+
+///ajax debug script 
+function debugCallback(response){
+	
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+};
+
+function debugAjax(){
+	
+	var mydata;
+
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			
+			debugCallback(mydata);
+		}
+	});
+
+	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
+};
+
+$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
 
 
