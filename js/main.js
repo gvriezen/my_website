@@ -1,25 +1,22 @@
 /*Grace Vriezen's Module 2 */
-function myFunct () {
-	var mydiv = document.getElementById ("mydiv");
-	mydiv.innerHTML = "Hello World.";
-};
 
-window.onload = myFunct ();
+//note: spelled out jQuery since dollar signs weren't working originally
 
 // cities table
 
-
-
-$ ('#mydiv').html ('Hello World');
 // minneapolis 400,070, saint paul 294,873, rochester 110724 Duluth 86128
 
 //initialize function
 function initialize () {
-	cities ();
+	cities (); 
+
+
 };
+
 
 //create table
 
+function cities () {
 var cityPop = [
 	{
 		city: 'Minneapolis',
@@ -40,67 +37,81 @@ var cityPop = [
 
 //append table to div
 
-$("#mydiv").append("<table>");
-$("table").append("<tr>");
-$("tr").append(<th>City</th><th>Population</th>);
+jQuery("#mydiv").append("<table>");
+jQuery("table").append("<tr>");
+jQuery("tr").append("<th>City</th><th>Population</th>");
 
-//loop
+//create for loop
 
-for (var i = 0; i<cityPop.length; i++) {
-	var rowHtml = "<tr><td>" + cityPop [i]. city + "</td><td>" + cityPop [i]. population + "</td></tr>"
-	$("table").append(rowHtml);
+for (var i = 0; i < cityPop.length; i++) {
+	var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>"
+	jQuery("table").append(rowHtml);
+
+	};
+
+	addColumns(cityPop);
+	addEvents();
 
 };
 
-};
+//debug script
 
-//initialize
-
-$(document).ready(initialize);
-
-
-
-
-
-
-//Debugging Script from LearnUW
 function addColumns(cityPop){
     
     $('tr').each(function(i){
 
     	if (i == 0){
+    		
+    		
+    		// append is spelled wrong
 
-    		$(this).apend('<th>City Size</th>');
+    		$(this).append('<th>City Size</th>');
+    	
     	} else {
+    		
 
-    		var citySize;
+    		var citySize; 
+
 
     		if (cityPop[i-1].population < 100000){
     			citySize = 'Small';
 
     		} else if (cityPop[i-1].population < 500000){
-    			citysize = 'Medium';
+    			//no camel case on citySize
+    			citySize = 'Medium';
 
     		} else {
     			citySize = 'Large';
     		};
 
-    		$this.append('<td' + citySize + '</td>');
+    		//no closing carrot on td tag
+    		//add parentheses around this
+
+    		jQuery(this).append('<td>' + citySize + '</td>');
     	};
+
     });
+
 };
 
-function addEvents(){
 
-	$('#table').mouseover(function(){
+
+function addEvents(){
+	//no hashtag, table is not an id
+
+	jQuery('table').mouseover(function(){
+
 		
 		var color = "rgb(";
+		//change var i=1 not i=0
 
 		for (var i=0; i<3; i++){
 
 			var random = Math.round(Math.random() * 255);
 
-			color += "random";
+			//no quotes around random
+
+			color += random;
 
 			if (i<2){
 				color += ",";
@@ -109,13 +120,25 @@ function addEvents(){
 				color += ")";
 		};
 
-		$(this).css('color', color);
-	});
+		jQuery(this).css('color', color);
+
+		//extra parentheses in closing syntax
+	};
 
 	function clickme(){
 
-		alert('Hey, you clicked me!');
+		alert('Minnesota is awesome!');
 	};
 
 	$('table').on('click', clickme);
-};
+//missing parentheses in closing syntax
+});
+}
+
+
+
+//initialize - 
+jQuery(document).ready(initialize);
+
+
+
