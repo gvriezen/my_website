@@ -8,7 +8,8 @@
 
 //initialize function
 function initialize () {
-	cities;
+	cities();
+	debugAjax();
 	
 };
 
@@ -43,7 +44,7 @@ $("tr").append("<th>City</th><th>Population</th>");
 //create for loop
 
 for (var i = 0; i < cityPop.length; i++) {
-	var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>"
+	var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>";
 	$("table").append(rowHtml);
 
 	};
@@ -135,56 +136,46 @@ function addEvents(){
 
 }
 
-
-//ajax
-
-function $Ajax(){
-
-	//define a variable to hold the data
-
-	var mydata;
-
-	//basic $ ajax method
-	$.ajax("data/Madison.geojson", {
-		dataType: "json",
-		success: function (response) {
-			mydata = response;
-			//check the data, should load, is within callback
-			console.log (mydata);
-		}
-	});
-
-	//check the data, should not print to console, response is not defined
-	console.log (mydata);
-};
-
-
-$(document).ready($Ajax);
-
-
-$Ajax();
-
 ///ajax debug script 
+//callback
 function debugCallback(response){
+
+	//check the data, console log should load, is within callback
+	console.log(response);
+
+	//change JSON.stringify(mydata)); to JSON.stringify(response)); since that is what you are using in the callback function
 	
-	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(response));
 };
 
 function debugAjax(){
 	
 	var mydata;
+	//basic ajax method
 
 	$.ajax("data/MegaCities.geojson", {
 		dataType: "json",
 		success: function(response){
-			
+			//set my data = response
+			mydata = response;
 			debugCallback(mydata);
+			//change debugCallback to console.log instead
+			//check the data, should load, is within callback
+			
+			console.log(mydata);
 		}
 	});
+	//check the data should not print to console, response is not defined
 
-	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
-};
+	console.log (mydata);
+	
+		$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(response));
 
-$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+};	
 
+jQuery(document).ready(initialize);
 
+//don't need this to work with previous code
+	//delete };
+
+//$(mydiv).append('GeoJSON data: ' + JSON.stringify(response));
